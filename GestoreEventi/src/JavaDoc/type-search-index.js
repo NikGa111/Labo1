@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"<Unnamed>","l":"Evento"},{"p":"<Unnamed>","l":"EventoBase"},{"p":"<Unnamed>","l":"EventoPremium"},{"p":"<Unnamed>","l":"GestioneEventi"},{"p":"<Unnamed>","l":"Main"},{"p":"<Unnamed>","l":"Prenotabile"},{"p":"<Unnamed>","l":"PrenotazioneException"}];updateSearchResults();
