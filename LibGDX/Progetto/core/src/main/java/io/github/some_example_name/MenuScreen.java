@@ -16,24 +16,23 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class MenuScreen {
 
     // Stati del menu
-    private enum Stato { MENU, SELECT_BG, SELECT_P1, SELECT_P2 } // definisco delle variabili costanti in un set di tipo enum
+    private enum Stato { MENU, SELECT_BG, SELECT_P1, SELECT_P2 }
     private Stato stato = Stato.MENU;
 
-    private int LARGHEZZA = Gdx.graphics.getWidth();
-    private int ALTEZZA   = Gdx.graphics.getHeight();
+    private static final int LARGHEZZA = 800;
+    private static final int ALTEZZA   = 500;
 
     private SpriteBatch   batch;
     private ShapeRenderer shapes;
     private BitmapFont    fontGrande;
     private BitmapFont    fontPiccolo;
 
-    // Anteprime degli sfondi (caricate con try/catch)
+    // Sfondi: 2 opzioni. Se il file esiste viene usato, altrimenti il colore di default
     private final Texture[] bgTextures = new Texture[2];
-    private final String[]  bgNomi     = {"Sfondo 1", "Sfondo 2"};
-    // Colori di fallback mostrati se il file immagine non esiste
+    private final String[]  bgNomi     = {"Blu", "Verde"};
     private final Color[]   bgFallback = {
-        new Color(0.1f, 0.4f, 0.1f, 1f),   // verde campo
-        new Color(0.05f, 0.05f, 0.2f, 1f),  // blu notte
+        new Color(0.05f, 0.05f, 0.2f, 1f),  // blu
+        new Color(0.1f,  0.4f,  0.1f, 1f)   // verde
     };
 
     // I 4 colori selezionabili per i giocatori
@@ -56,12 +55,12 @@ public class MenuScreen {
         fontPiccolo = new BitmapFont();
         fontPiccolo.getData().setScale(2.5f);
 
-        // Carica le anteprime degli sfondi; se il file manca usa il colore di fallback
+        // Prova a caricare le immagini; se non esistono usa il colore di default
         for (int i = 0; i < 2; i++) {
             try {
-                bgTextures[i] = new Texture(Gdx.files.internal("Img/bg" + (i + 1) + ".jpg"));
+                bgTextures[i] = new Texture(Gdx.files.internal("bg" + (i + 1) + ".png"));
             } catch (Exception e) {
-                bgTextures[i] = null; // disegneremo un rettangolo colorato
+                bgTextures[i] = null;
             }
         }
     }
@@ -95,22 +94,21 @@ public class MenuScreen {
     }
 
     private void disegnaSfondo() {
-        // Mostra 3 anteprime (200x130) affiancate
+        // Mostra 2 anteprime (200x130) affiancate come rettangoli colorati
         batch.begin();
         fontPiccolo.setColor(Color.WHITE);
-        fontPiccolo.draw(batch, "Scegli lo sfondo:", 250, 460);
+        fontPiccolo.draw(batch, "Scegli lo sfondo:", 280, 460);
         batch.end();
 
         shapes.begin(ShapeRenderer.ShapeType.Filled);
         for (int i = 0; i < 2; i++) {
-            float x = 80 + i * 220;
+            float x = 180 + i * 260;
             float y = 230;
-            // Bordo giallo se selezionato
             if (i == bgIndex) {
                 shapes.setColor(Color.YELLOW);
                 shapes.rect(x - 4, y - 4, 208, 138);
             }
-            // Colore di fallback se la texture non è caricata
+            // Colore di default solo se l'immagine non è stata trovata
             if (bgTextures[i] == null) {
                 shapes.setColor(bgFallback[i]);
                 shapes.rect(x, y, 200, 130);
@@ -118,15 +116,12 @@ public class MenuScreen {
         }
         shapes.end();
 
-        // Disegna le texture degli sfondi se disponibili
         batch.begin();
         for (int i = 0; i < 2; i++) {
-            float x = 80 + i * 220;
-            if (bgTextures[i] != null) {
-                batch.draw(bgTextures[i], x, 230, 200, 130);
-            }
+            float x = 180 + i * 260;
+            if (bgTextures[i] != null) batch.draw(bgTextures[i], x, 230, 200, 130);
             fontPiccolo.setColor(Color.WHITE);
-            fontPiccolo.draw(batch, bgNomi[i], x + 50, 220);
+            fontPiccolo.draw(batch, bgNomi[i], 230 + i * 260, 220);
         }
         fontPiccolo.setColor(Color.LIGHT_GRAY);
         fontPiccolo.draw(batch, "Clicca per scegliere, poi premi INVIO", 170, 160);
@@ -178,9 +173,8 @@ public class MenuScreen {
     }
 
     private void gestisciSfondo() {
-        // Click sulle 3 anteprime
-        for (int i = 0; i < 3; i++) {
-            if (clicked(80 + i * 220, 230, 200, 130)) {
+        for (int i = 0; i < 2; i++) {
+            if (clicked(180 + i * 260, 230, 200, 130)) {
                 bgIndex = i;
             }
         }

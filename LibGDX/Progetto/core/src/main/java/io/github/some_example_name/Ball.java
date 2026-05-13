@@ -25,12 +25,23 @@ public class Ball extends GameObject {
         if (bounds.y <= 0 || bounds.y + bounds.height >= ALTEZZA_SCHERMO)
             velY *= -1;
     }
+    public void rimbalzaOrizzontale() {
+        velX = -velX;
 
-    public void rimbalzaOrizzontale()  { velX *= -1; }
+        if (velX > 0) {
+            velX += 250f;
+        } else {
+            velX -= 250f;
+        }
+
+        velY += 1;
+    }
 
     public void reset() {
         bounds.setPosition(390, 240);
         velX *= -1;
+        velX =20;
+        velY =20;
     }
 
     public boolean uscitaSinistra() { return bounds.x + bounds.width <= 0; }

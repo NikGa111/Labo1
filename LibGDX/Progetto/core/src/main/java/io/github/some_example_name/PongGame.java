@@ -34,7 +34,13 @@ public class PongGame extends ApplicationAdapter {
     private Sprite  spritePalla;
     private Texture texturePalla;
 
-    // Sfondo scelto nel menu: caricato come Texture (non presente in MainGame)
+    // Colori di default se l'immagine non è trovata (devono corrispondere a MenuScreen.bgFallback)
+    private static final Color[] SFONDI = {
+        new Color(0.05f, 0.05f, 0.2f, 1f),
+        new Color(0.1f,  0.4f,  0.1f, 1f)
+    };
+
+    // Sfondo scelto nel menu: texture se trovata, altrimenti colore di default
     private Texture texturaSfondo;
 
     // Sound: audio per rimbalzo e goal (non presente in MainGame)
@@ -55,7 +61,7 @@ public class PongGame extends ApplicationAdapter {
     private int     selezione = 0;
     private final String[] opzioni = {"Riprendi", "Riavvia", "Esci"};
 
-    // Countdown: usando getDeltaTime() (non bloccante)
+    // Countdown: rimpiazza time.sleep() di Python usando getDeltaTime() (non bloccante)
     private boolean inCountdown    = false;
     private float   tempoContdown  = 0f;
     private int     numeroMostrato = 3;
@@ -84,9 +90,9 @@ public class PongGame extends ApplicationAdapter {
 
         shapes = new ShapeRenderer();
 
-        // Carica lo sfondo scelto nel menu; fallback a null se il file non esiste
+        // Carica lo sfondo scelto; se il file non esiste usa il colore di default
         try {
-            texturaSfondo = new Texture(Gdx.files.internal("bg" + (bgIndex + 1) + ".jpg"));
+            texturaSfondo = new Texture(Gdx.files.internal("bg" + (bgIndex + 1) + ".png"));
         } catch (Exception e) {
             texturaSfondo = null;
         }
@@ -100,9 +106,9 @@ public class PongGame extends ApplicationAdapter {
         spritePalla = new Sprite(texturePalla);
 
         // Carica i suoni; se i file non esistono il gioco parte lo stesso (try/catch)
-        try { suonoPalla = Gdx.audio.newSound(Gdx.files.internal("boing.mp3")); }
+        try { suonoPalla = Gdx.audio.newSound(Gdx.files.internal("Sound/boing.mp3")); }
         catch (Exception e) { suonoPalla = null; }
-        try { suonoGoal  = Gdx.audio.newSound(Gdx.files.internal("siuuu.mp3")); }
+        try { suonoGoal  = Gdx.audio.newSound(Gdx.files.internal("Sound/siuuu.mp3")); }
         catch (Exception e) { suonoGoal = null; }
 
         scoreManager = new ScoreManager();
@@ -184,13 +190,15 @@ public class PongGame extends ApplicationAdapter {
     }
 
     private void Disegna() {
-        ScreenUtils.clear(0f, 0f, 0f, 1f);
-
-        // Sfondo: texture se disponibile, altrimenti schermo nero
+        // Sfondo: texture se trovata, altrimenti colore di default
         if (texturaSfondo != null) {
+            ScreenUtils.clear(0f, 0f, 0f, 1f);
             batch.begin();
             batch.draw(texturaSfondo, 0, 0, LARGHEZZA, ALTEZZA);
             batch.end();
+        } else {
+            Color bg = SFONDI[bgIndex];
+            ScreenUtils.clear(bg.r, bg.g, bg.b, 1f);
         }
 
         shapes.begin(ShapeRenderer.ShapeType.Filled);
