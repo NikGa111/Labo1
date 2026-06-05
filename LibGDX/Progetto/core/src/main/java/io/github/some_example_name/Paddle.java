@@ -2,10 +2,13 @@ package io.github.some_example_name;
 
 import com.badlogic.gdx.Gdx;
 
-/** Racchetta del gioco. Estende GameObject (ereditarietà). */
+/** Racchetta del gioco. Estende GameObject (ereditarietà).
+ * I commenti scritti in questo formato sono generati con AI.
+ * In alcune parti ha modificato anche l'indentazione ma solo dove eplicitato il codice è generato dall'AI.
+ * */
 public class Paddle extends GameObject {
 
-    private static final float VELOCITA = 300f;
+    private static final float VELOCITA = 500f;
     private static final int ALTEZZA_SCHERMO = 500;
 
     private final int tastoSu;

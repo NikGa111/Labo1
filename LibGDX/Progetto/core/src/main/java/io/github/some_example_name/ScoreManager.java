@@ -6,12 +6,14 @@ import com.badlogic.gdx.files.FileHandle;
 /**
  * Gestisce i punteggi e li salva su file.
  * Usa Gdx.files.absolute() per scrivere in un percorso specifico su disco.
+ * I commenti scritti in questo formato sono generati con AI.
+ * In alcune parti ha modificato anche l'indentazione ma solo dove eplicitato il codice è generato dall'AI.
  */
 public class ScoreManager {
 
     // Percorso assoluto dove viene salvato il file dei punteggi
     private static final String PERCORSO =
-        "C:/DatiAllievo/Gits/Labo1/LibGDX/Progetto/core/src/main/java/io/github/some_example_name/punteggi.txt";
+        "./core/src/main/java/io/github/some_example_name/punteggi.txt";
 
     private int punteggioP1 = 0;
     private int punteggioP2 = 0;
@@ -27,13 +29,15 @@ public class ScoreManager {
     public void salva() {
         try {
             FileHandle file = Gdx.files.absolute(PERCORSO);
-            file.writeString("P1:" + punteggioP1 + "\nP2:" + punteggioP2, false);
+            file.writeString("P1:" + punteggioP1 + "\nP2:" + punteggioP2, false); // l'append = false fa si che non si attacchino tutti i punteggi, se true si attaccano ed esce male e aggiunge a caso il punteggio p1=0 e p2=0
         } catch (Exception e) {
             Gdx.app.error("ScoreManager", "Salvataggio fallito: " + e.getMessage());
         }
     }
 
-    /** Legge i punteggi dal file. Se il file non esiste parte da zero senza crash. */
+    /** Legge i punteggi dal file. Se il file non esiste parte da zero senza crash.
+     * Creata con aiuto prevalente dell'AI perché prima crashava quando non c'era il carica
+     * */
     public void carica() {
         try {
             FileHandle file = Gdx.files.absolute(PERCORSO);

@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.Rectangle;
 /**
  * Classe base per Ball e Paddle.
  * Contiene il Rectangle condiviso e obbliga le sottoclassi a implementare update().
+ * I commenti scritti in questo formato sono generati con AI.
+ * In alcune parti ha modificato anche l'indentazione ma solo dove eplicitato il codice è generato dall'AI.
  */
 public abstract class GameObject {
 

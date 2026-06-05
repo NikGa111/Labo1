@@ -6,6 +6,8 @@ import com.badlogic.gdx.Gdx;
 /**
  * Entry point del gioco. Gestisce il passaggio dal menu al gioco.
  * Nel DesktopLauncher sostituire "new PongGame()" con "new Main()".
+ * I commenti scritti in questo formato sono generati con AI.
+ * In alcune parti ha modificato anche l'indentazione ma solo dove eplicitato il codice è generato dall'AI.
  */
 public class MainGame extends ApplicationAdapter {
 

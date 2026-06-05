@@ -2,7 +2,10 @@ package io.github.some_example_name;
 
 import com.badlogic.gdx.Gdx;
 
-/** Palla del gioco. Estende GameObject (ereditarietà). */
+/** Palla del gioco. Estende GameObject (ereditarietà).
+ * I commenti scritti in questo formato sono generati con AI.
+ * In alcune parti ha modificato anche l'indentazione ma solo dove eplicitato il codice è generato dall'AI.
+ * */
 public class Ball extends GameObject {
 
     private float velX;
@@ -29,9 +32,9 @@ public class Ball extends GameObject {
         velX = -velX;
 
         if (velX > 0) {
-            velX += 250f;
+            velX += 120f;
         } else {
-            velX -= 250f;
+            velX -= 120f;
         }
 
         velY += 1;
@@ -39,9 +42,8 @@ public class Ball extends GameObject {
 
     public void reset() {
         bounds.setPosition(390, 240);
-        velX *= -1;
-        velX =20;
-        velY =20;
+        velX = 20000 * Gdx.graphics.getDeltaTime();
+        velY = 20000 * Gdx.graphics.getDeltaTime();
     }
 
     public boolean uscitaSinistra() { return bounds.x + bounds.width <= 0; }

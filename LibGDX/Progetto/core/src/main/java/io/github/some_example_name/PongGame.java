@@ -14,12 +14,14 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 /**
- * Pong 2 Giocatori – tradotto da pong_pvp.py
+ * Pong 2 Giocatori
  *
  * Controlli:
  *   Giocatore 1: W / S
  *   Giocatore 2: freccia SU / GIÙ
  *   M = pausa
+ * I commenti scritti in questo formato sono generati con AI.
+ * In alcune parti ha modificato anche l'indentazione ma solo dove eplicitato il codice è generato dall'AI.
  */
 public class PongGame extends ApplicationAdapter {
 
@@ -57,7 +59,7 @@ public class PongGame extends ApplicationAdapter {
     // ScoreManager: gestisce punteggi e salvataggio su file (non presente in MainGame)
     private ScoreManager scoreManager;
 
-    private boolean inPausa   = false;
+    private boolean inPausa = false;
     private int     selezione = 0;
     private final String[] opzioni = {"Riprendi", "Riavvia", "Esci"};
 
@@ -97,7 +99,11 @@ public class PongGame extends ApplicationAdapter {
             texturaSfondo = null;
         }
 
-        // Crea la texture della palla disegnando un cerchio su un Pixmap (immagine in memoria)
+        /* Crea la texture della palla disegnando un cerchio su un Pixmap (immagine in memoria).
+        * Una Pixmap in LibGDX è un'immagine creata e modificata direttamente in memoria tramite codice.
+        */
+        // Per questo mi sono fatto aiutare dall'AI
+
         Pixmap pm = new Pixmap(20, 20, Pixmap.Format.RGBA8888);
         pm.setColor(255 / 255f, 123 / 255f, 0f, 1f);
         pm.fillCircle(10, 10, 10);
@@ -136,10 +142,12 @@ public class PongGame extends ApplicationAdapter {
         if (Gdx.input.isKeyJustPressed(Input.Keys.M)) {
             inPausa = !inPausa;
             selezione = 0;
-            if (!inPausa) AvviaCountdown();
+            if (!inPausa) {AvviaCountdown();}
         }
 
         if (inPausa) {
+
+            // Aiutato dal'AI per la selezione nel menu di pausa.
             if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
                 selezione = (selezione - 1 + opzioni.length) % opzioni.length;
             if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN))

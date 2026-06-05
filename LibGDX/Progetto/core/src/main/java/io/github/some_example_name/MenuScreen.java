@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 /**
  * Gestisce il flusso del menu prima del gioco:
  *   MENU → scelta sfondo → colore P1 → colore P2 → gioco avviato
+ *   I commenti scritti in questo formato sono generati con AI.
  */
 public class MenuScreen {
 
@@ -31,6 +32,7 @@ public class MenuScreen {
     private final Texture[] bgTextures = new Texture[2];
     private final String[]  bgNomi     = {"Blu", "Verde"};
     private final Color[]   bgFallback = {
+        // Per i colori li volevo simili alle immagini e le due righe successive sono fatte grazie all'AI
         new Color(0.05f, 0.05f, 0.2f, 1f),  // blu
         new Color(0.1f,  0.4f,  0.1f, 1f)   // verde
     };
@@ -58,7 +60,7 @@ public class MenuScreen {
         // Prova a caricare le immagini; se non esistono usa il colore di default
         for (int i = 0; i < 2; i++) {
             try {
-                bgTextures[i] = new Texture(Gdx.files.internal("bg" + (i + 1) + ".png"));
+                bgTextures[i] = new Texture(Gdx.files.internal("bg" + (i + 1) + ".png")); // Gdx.files.internal("bg" + (i + 1) + ".png") aiutato dall'AI
             } catch (Exception e) {
                 bgTextures[i] = null;
             }
@@ -79,7 +81,7 @@ public class MenuScreen {
     }
 
     // -------------------------------------------------------------------------
-    // DISEGNO
+    // DISEGNOO
     // -------------------------------------------------------------------------
 
     private void disegnaMenu() {
@@ -94,12 +96,12 @@ public class MenuScreen {
     }
 
     private void disegnaSfondo() {
-        // Mostra 2 anteprime (200x130) affiancate come rettangoli colorati
+        // Mostra 2 anteprime affiancate come rettangoli colorati
         batch.begin();
         fontPiccolo.setColor(Color.WHITE);
         fontPiccolo.draw(batch, "Scegli lo sfondo:", 280, 460);
         batch.end();
-
+        // Aiutato dall'AI mi sono fatto fare la selezione in GIALLOO
         shapes.begin(ShapeRenderer.ShapeType.Filled);
         for (int i = 0; i < 2; i++) {
             float x = 180 + i * 260;
